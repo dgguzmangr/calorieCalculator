@@ -15,8 +15,11 @@ function calcularCalorias() {
     const altura = document.querySelector('#altura');
     const genero = document.querySelector('input[name="genero"]:checked');
     const actividad = document.querySelector('#actividad');
-    // const totalCalorias = document.querySelector('#total-calorias');
-
+    //my update start
+    let nombre_apellido = document.getElementById("nombre_apellido").value;
+    let tipo_de_documento = document.getElementById("tipo_de_documento").selectedOptions[0].value;
+    let numero_documento = document.getElementById("numero_documento").value;
+    //my update end
     const multiplicadorTMB = {
         peso: 10,
         altura: 6.25,
@@ -48,13 +51,21 @@ function calcularCalorias() {
     
     resultado.innerHTML = `
         <div class=" card-body d-flex flex-column justify-content-center align-items-center h-100" id="calculo">
+            <h4 class="text-center justify-content-between pb-4">El paciente <span>${nombre_apellido}</span> identificado con <span>${tipo_de_documento}</span> No.<span>${numero_documento}</span>, requiere un total de <span>${Math.floor(calculoCalorias)}</span> kcal
+            para el sostenimiento de su TBM "tasa metabólica basal”.</h4>
+
             <h5 class="card-title h2">Calorías requeridas</h5>
             <div class="mb-3 w-100">
-                <input class="form-control text-center" value="${Math.floor(calculoCalorias)} kcal" style="font-size: 2rem" disabled>
+                <input class="form-control text-center font-weight-bold" value="${Math.floor(calculoCalorias)} kcal" style="font-size: 2rem" disabled>
             </div>
         </div>
     `
 
+    //my update start//
+    nombre_apellido.value = null
+    tipo_de_documento.value = null
+    numero_documento.value = null
+    //my update end//
     peso.value = null;
     altura.value = null;
     edad.value = null;
