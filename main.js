@@ -19,12 +19,16 @@ function calcularCalorias() {
     let nombre_apellido = document.getElementById("nombre_apellido").value;
     let tipo_de_documento = document.getElementById("tipo_de_documento").selectedOptions[0].value;
     let numero_documento = document.getElementById("numero_documento").value;
+    let grupo_poblacional = "";
     //my update end
     const multiplicadorTMB = {
         peso: 10,
         altura: 6.25,
         edad: 5
     }
+
+
+
 
     if ( !(edad.value && peso.value && altura.value) ) {
         mostrarMensajeDeError('Por favor asegúrese de llenar todos los campos');
@@ -48,12 +52,25 @@ function calcularCalorias() {
     }
     
     // totalCalorias.value = `${Math.floor(calculoCalorias)} kcal`;
+
+    //my update start//
+    if (edad.value >= 15 && edad.value <=29) {
+        grupo_poblacional = "Jovenes" }
+    
+    if (edad.value >= 30 && edad.value <=59) {
+        grupo_poblacional = "Adultos" }
+    
+    if (edad.value >= 60) {
+        grupo_poblacional = "Adultos mayores"
+    }
+
+    // grupo poblacional
+    //my update end//
     
     resultado.innerHTML = `
         <div class=" card-body d-flex flex-column justify-content-center align-items-center h-100" id="calculo">
-            <h4 class="text-center justify-content-between pb-4">El paciente <span>${nombre_apellido}</span> identificado con <span>${tipo_de_documento}</span> No.<span>${numero_documento}</span>, requiere un total de <span>${Math.floor(calculoCalorias)}</span> kcal
-            para el sostenimiento de su TBM "tasa metabólica basal”.</h4>
-
+            <h4 class="text-center justify-content-between pb-4">El paciente <span>${nombre_apellido}</span> identificado con <span>${tipo_de_documento}</span> No.<span>${numero_documento}</span>, requiere un total de <span>${Math.floor(calculoCalorias)}</span> kcal para el sostenimiento de su TBM "tasa metabólica basal”.</h4>
+            <h4 class="text-center justify-content-between pb-4">Perteneces al grupo poblacional <span>${grupo_poblacional}</span>.</h4>
             <h5 class="card-title h2">Calorías requeridas</h5>
             <div class="mb-3 w-100">
                 <input class="form-control text-center font-weight-bold" value="${Math.floor(calculoCalorias)} kcal" style="font-size: 2rem" disabled>
@@ -62,14 +79,15 @@ function calcularCalorias() {
     `
 
     //my update start//
-    nombre_apellido.value = null
-    tipo_de_documento.value = null
-    numero_documento.value = null
+    nombre_apellido.value = null;
+    tipo_de_documento.value = null;
+    numero_documento.value = null;
     //my update end//
     peso.value = null;
     altura.value = null;
     edad.value = null;
     actividad.value = null;
+    
 }
 
 function mostrarMensajeDeError(msg) {
@@ -89,7 +107,6 @@ function mostrarMensajeDeError(msg) {
         desvanecerResultado();
     }, 5000);
 }
-
 
 // Animaciones
 function aparecerResultado() {
